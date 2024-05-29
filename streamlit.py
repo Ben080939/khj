@@ -3,7 +3,8 @@ import streamlit as st
 st.header("open api key를 입력하세요.")
 apikey = st.text_input("", type="password")
 
-
+if 'key' not in st.session_state:
+    st.session_state.key = apikey
 
 st.divider()
 
@@ -13,7 +14,7 @@ prompt1 = st.text_input("질문?")
 
 if st.button("실행"):
    from openai import OpenAI
-   client = OpenAI(api_key= key)
+   client = OpenAI(api_key= apikey)
    response = client.chat.completions.create(
      model="gpt-3.5-turbo",
      messages=[
