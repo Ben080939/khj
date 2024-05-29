@@ -13,7 +13,6 @@ st.header("무엇이든 물어보세요.")
 
 prompt1 = st.text_input("질문?")
 
-@st.cache.data
 if st.button("실행"):
    from openai import OpenAI
    client = OpenAI(api_key= key)
