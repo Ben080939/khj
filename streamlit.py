@@ -24,4 +24,6 @@ if st.button("실행"):
    )
    st.markdown(response.choices[0].message.content)
 
+streamlit run streamlit-image.py
+
 
