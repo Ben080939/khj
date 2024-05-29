@@ -1,11 +1,10 @@
-
 import streamlit as st
 
 st.header("open api key를 입력하세요.")
-key = st.text_input("비밀보장", type="password")
+apikey = st.text_input("", type="password")
 
 if 'key' not in st.session_state:
-    st.session_state.key = key
+    st.session_state.key = apikey
 
 st.divider()
 
