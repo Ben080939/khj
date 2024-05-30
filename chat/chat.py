@@ -30,6 +30,12 @@ if prompt := st.chat_input("What is up?"):
 	st.chat_message("user").markdown(prompt)
 	st.session_state.messages.append({"role": "user", "content": prompt})
 
+	  new_message = client.beta.threads.messages.create(
+	    thread_id = thread.id,
+	    role="user",
+	    content=prompt
+	  )
+
 thread_messages = client.beta.threads.messages.list(thread.id)
 
 for msg in thread_messages.data:
