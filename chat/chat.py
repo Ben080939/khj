@@ -38,7 +38,7 @@ if prompt := st.chat_input("What is up?"):
 thread_messages = client.beta.threads.messages.list(thread.id)
 
 for msg in thread_messages.data:
-   prompt2 = msg.content[1].text.value
+   prompt2 = msg.content[-1].text.value
    response = f"Echo: {prompt2}"
    with st.chat_message("assistant"):
 	    st.markdown(response)
