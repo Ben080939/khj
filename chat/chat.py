@@ -53,9 +53,22 @@ if prompt := st.chat_input("What is up?"):
 	    role="user",
 	    content=prompt
 	  )
-	run_and_wait(client, assistant, thread)
+	run = client.beta.threads.runs.create(
+	    thread_id=thread.id,
+	    assistant_id=assistant.id
+	  )
 
 thread_messages = client.beta.threads.messages.list(thread.id)
+
+
+for msg in thread_messages.data:
+   prompt2 = thread_messages.data.content[0].text.value
+   response = f"Echo: {prompt2}"
+   with st.chat_message("assistant"):
+	    st.markdown(response)
+   st.session_state.messages.append({"role": "assistant", "content": response})
+
+
 
 
 
