@@ -36,9 +36,6 @@ def run_and_wait(client, assistant, thread):
       break
   return run
 
-run = run_and_wait(client, assistant, thread)
-
-
 st.header("무엇이든 물어보세요.")
 
 if "messages" not in st.session_state:
@@ -56,7 +53,10 @@ if prompt := st.chat_input("What is up?"):
 	    role="user",
 	    content=prompt
 	  )
-	run_and_wait(client, assistant, thread)
+	run = client.beta.threads.runs.create(
+	    thread_id=thread.id,
+	    assistant_id=assistant.id
+	  )
 
 
 
