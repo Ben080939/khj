@@ -36,6 +36,10 @@ if prompt := st.chat_input("What is up?"):
 	    role="user",
 	    content=prompt
 	  )
+	run = client.beta.threads.runs.create(
+	    thread_id=thread.id,
+	    assistant_id=assistant.id
+	  )
 
 thread_messages = client.beta.threads.messages.list(thread.id)
 
