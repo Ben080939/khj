@@ -19,6 +19,8 @@ thread = client.beta.threads.create(
 
 import time
 
+run = run_and_wait(client, assistant, thread)
+
 def run_and_wait(client, assistant, thread):
   run = client.beta.threads.runs.create(
     thread_id=thread.id,
