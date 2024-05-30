@@ -19,22 +19,6 @@ thread = client.beta.threads.create(
 
 import time
 
-def run_and_wait(client, assistant, thread):
-  run = client.beta.threads.runs.create(
-    thread_id=thread.id,
-    assistant_id=assistant.id
-  )
-  while True:
-    run_check = client.beta.threads.runs.retrieve(
-      thread_id=thread.id,
-      run_id=run.id
-    )
-    print(run_check.status)
-    if run_check.status in ['queued','in_progress']:
-      time.sleep(2)
-    else:
-      break
-  return run
 
 st.header("무엇이든 물어보세요.")
 
