@@ -34,10 +34,12 @@ thread_messages = client.beta.threads.messages.list(thread.id)
 
 for msg in thread_messages.data:
    prompt = msg.content[0].text.value
-   response = f"Echo: {prompt}"
-   with st.chat_message("assistant"):
+   return prompt
+
+response = f"Echo: {prompt}"
+with st.chat_message("assistant"):
     st.markdown(response)
-   st.session_state.messages.append({"role": "assistant", "content": response})
+st.session_state.messages.append({"role": "assistant", "content": response})
 
 
 
