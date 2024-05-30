@@ -61,7 +61,7 @@ run = client.beta.threads.runs.create(
 thread_messages = client.beta.threads.messages.list(thread.id)
 
 for msg in thread_messages.data:
-   prompt2 = thread_messages.data.content[0].text
+   prompt2 = msg.content[0].text.value
    response = f"Echo: {prompt2}"
    with st.chat_message("assistant"):
 	    st.markdown(response)
