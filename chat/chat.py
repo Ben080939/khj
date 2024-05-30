@@ -19,8 +19,6 @@ thread = client.beta.threads.create(
 
 import time
 
-run = run_and_wait(client, assistant, thread)
-
 def run_and_wait(client, assistant, thread):
   run = client.beta.threads.runs.create(
     thread_id=thread.id,
@@ -37,6 +35,8 @@ def run_and_wait(client, assistant, thread):
     else:
       break
   return run
+
+run = run_and_wait(client, assistant, thread)
 
 
 st.header("무엇이든 물어보세요.")
