@@ -34,8 +34,7 @@ thread_messages = client.beta.threads.messages.list(thread.id)
 
 for msg in thread_messages.data:
    prompta = msg.content[0].text.value
-
-response = f"Echo: {prompta}"
+   response = f"Echo: {prompta}"
 
 with st.chat_message("assistant"):
     st.markdown(response)
