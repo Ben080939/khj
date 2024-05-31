@@ -7,9 +7,6 @@ apikey = st.text_input("API Key",key="api", type="password")
 if 'akey' not in st.session_state:
     st.session_state = ['akey'] = 'apikey'
 	
-    or
-    
-    st.session_state.aws_key = 'apikey'
 st.divider() 
 
 st.header("무엇이든 물어보세요.")
