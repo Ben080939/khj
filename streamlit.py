@@ -3,7 +3,9 @@ import streamlit as st
 st.header("open api key를 입력하세요.")
 
 st.text_input("API Key",key="api", type="password")
-apikey = st.session_state.api
+
+if 'key' not in st.session_state:
+ st.session_state['key'] = 'st.text_input("API Key",key="api", type="password")'
 
 st.divider() 
 
