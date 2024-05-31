@@ -5,7 +5,7 @@ st.header("open api key를 입력하세요.")
 apikey = st.text_input("API Key",key="api", type="password")
 
 if 'akey' not in st.session_state:
-    st.session_state = ['akey'] = 'apikey'
+    st.session_state.akey = 'apikey'
 	
 st.divider() 
 
