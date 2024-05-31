@@ -4,8 +4,8 @@ st.header("open api key를 입력하세요.")
 
 apikey = st.text_input("API Key",key="api", type="password")
 
-if 'aws_key' not in st.session_state:
-    st.session_state = ['aws_key'] = 'apikey'
+if 'akey' not in st.session_state:
+    st.session_state = ['akey'] = 'apikey'
 	
     or
     
