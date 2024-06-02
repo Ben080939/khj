@@ -3,9 +3,9 @@ from openai import OpenAI
 import time
 import json
 
+apikey = st.text_input("api key를 입력하세요", type="password") 
 
-st.session_state
-client = OpenAI(api_key= st.session_state.key)
+client = OpenAI(api_key= apikey)
 
 tools = [
     {
