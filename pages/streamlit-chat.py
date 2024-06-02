@@ -2,10 +2,9 @@ import streamlit as st
 from openai import OpenAI
 import time
 
-st.header("open api key를 입력하세요.")
-apikey = st.text_input("API Key", type="password")
+st.session_state
 
-client = OpenAI(api_key= apikey)
+client = OpenAI(api_key= st.session_state.key)
 
 tools = [
     {
