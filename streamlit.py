@@ -22,15 +22,16 @@ def ask(prompt):
         {"role": "user", "content": prompt1},
      ]
    )
-   answer = st.markdown(response.choices[0].message.content)
-   return answer
+  
+   return response.choices[0].message.content
 	
 	
 
 prompt1 = st.text_input("질문?")
 
 if st.button("실행"):
-	ask(prompt1)
+	answer = ask(prompt1)
+	st.markdown(answer)
    
 
 
