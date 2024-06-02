@@ -3,13 +3,10 @@ from openai import OpenAI
 
 
 if 'key' not in st.session_state: 
-    st.session_state['key'] = st.text_input("API Key를 입력하세요", type="password")
+    apikey = st.text_input("API Key를 입력하세요", type="password")
+    st.session_state['key'] = apikey
+    client = OpenAI(api_key= apikey)
 
-
-
-
-
-client = OpenAI(api_key= apikey)
 
 @st.cache_data()
 def ask(pp):
