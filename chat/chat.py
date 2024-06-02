@@ -14,9 +14,13 @@ assistant = client.beta.assistants.create(
 )
 
 thread = client.beta.threads.create(
-  messages=[ ]
+  messages=[
+    {
+      "role": "user",
+      "content": "부산에는 구가 몇 개 있지?"
+    }
+  ]
 )
-
 st.header("무엇이든 물어보세요.")
 
 if "messages" not in st.session_state:
