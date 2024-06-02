@@ -1,5 +1,4 @@
 import streamlit as st
-from openai import OpenAI
 
 api_key = st.text_input("API Key를 입력하세요", type="password")
 
