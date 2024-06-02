@@ -11,6 +11,7 @@ assistant = client.beta.assistants.create(
   name="assistant",
   description="당신은 유능한 비서입니다.",
   model="gpt-4o",
+  tools=[{"type": "code_interpreter"}],
 )
 
 thread = client.beta.threads.create(
@@ -53,8 +54,24 @@ if prompt := st.chat_input("What is up?"):
 	for msg in thread_messages.data:
 	   response = f"Echo: {msg.content[0].text.value}"
 	   with st.chat_message("assistant"): 
-	      
+	      st.markdown(response)
 	st.session_state.messages.append({"role": "assistant", "content": response})
+
+
+
+if st.button("clear"):
+	client.beta.threads.delete(thread.id)
+	thread = client.beta.threads.create(
+	  messages=[
+	  ]
+	)
+
+if st.button("대화창 나가기"):
+	client.beta.threads.delete(thread.id)
+	client.beta.assistants.delete(assistant.id)
+	
+
+
 
 	
 
