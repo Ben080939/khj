@@ -58,7 +58,6 @@ for msg in st.session_state.messages:
 
 
 if prompt := st.chat_input("What is up?"):
-    st.chat_message("user").markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
     new_message = client.beta.threads.messages.create(
         thread_id=thread.id,
@@ -102,6 +101,10 @@ if prompt := st.chat_input("What is up?"):
             with st.chat_message("assistant"): 
                 st.markdown(response)
             st.session_state.messages.append({"role": "assistant", "content": response})
+
+        elif msg.role == "user":
+            with st.chat_message("user"):
+                st.markdown(msg.content[0].text.value)
 
 if st.button("clear"):
     client.beta.threads.delete(thread.id)
