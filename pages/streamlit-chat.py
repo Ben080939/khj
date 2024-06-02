@@ -4,7 +4,9 @@ import time
 
 st.session_state
 
-client = OpenAI(api_key= st.session_state.key)
+apikey = st.text_input("api key를 입력하세요", type="password") 
+
+client = OpenAI(api_key= apikey)
 
 tools = [
     {
