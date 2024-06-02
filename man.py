@@ -13,7 +13,7 @@ st.session_state.api_key = st.text_input("Enter your OpenAI API key:", type="pas
 
 # 입력된 API Key로 OpenAI 클라이언트 설정
 if st.session_state.api_key:
-    openai.api_key = st.session_state.api_key
+    client = OpenAI(api_key = st.session_state.api_key)
 
 # 질문 입력 받기
 question = st.text_input("Ask a question:")
@@ -21,7 +21,7 @@ question = st.text_input("Ask a question:")
 # @st.cache_data를 이용해 입력이 변하지 않으면 rerun 시 저장된 결과 반환
 @st.cache_data(ttl=60*5)  # 캐시 유효 기간을 5분으로 설정
 def get_response_from_gpt3(question, api_key):
-    openai.api_key = api_key  # 함수 내에서 API 키 설정
+    client = OpenAI(api_key =api_key)  # 함수 내에서 API 키 설정
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
