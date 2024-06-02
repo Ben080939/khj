@@ -56,6 +56,7 @@ for msg in st.session_state.messages:
 	with st.chat_message(msg["role"]):
 		st.markdown(msg["content"])
 
+
 if prompt := st.chat_input("What is up?"):
     st.chat_message("user").markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -94,28 +95,21 @@ if prompt := st.chat_input("What is up?"):
         )
         run_check = wait_run(client, run, thread)
     
-    # assistant response
-    response = f"Echo: {prompt}"
-    with st.chat_message("assistant"): 
-        st.markdown(response)
-    st.session_state.messages.append({"role": "assistant", "content": response})
-
-
-
-
+    thread_messages = client.beta.threads.messages.list(thread.id)
+    for msg in thread_messages.data:
+        if msg.role == "assistant":
+            response = f"Echo: {msg.content[0].text.value}"
+            with st.chat_message("assistant"): 
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
 
 if st.button("clear"):
-	client.beta.threads.delete(thread.id)
-	thread = client.beta.threads.create(
-	  messages=[
-	  ]
-	)
+    client.beta.threads.delete(thread.id)
+    thread = client.beta.threads.create(
+        messages=[
+        ]
+    )
 
 if st.button("대화창 나가기"):
-	client.beta.threads.delete(thread.id)
-	client.beta.assistants.delete(assistant.id)
-	
-
-
-
-	
+    client.beta.threads.delete(thread.id)
+    client.beta.assistants.delete(assistant.id)
