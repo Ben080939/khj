@@ -4,7 +4,7 @@ from openai import OpenAI
 apikey = st.text_input("api key를 입력하세요", type="password", key="api") 
 
 
-"st.session_state object:", st.session_state
+st.session_state
 
 if 'key' not in st.session_state: 
     st.session_state['key'] = apikey
