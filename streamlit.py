@@ -1,10 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 
-
-st.session_state['api_key'] = st.text_input("API Key를 입력하세요", type="password")
-
-
+api_key = st.text_input("API Key를 입력하세요", type="password")
 
 @st.cache_data
 def ask(prompt):
