@@ -8,6 +8,9 @@ apikey = st.text_input("api key를 입력하세요", type="password")
 st.header("무엇이든 그려보세요.")
 prompti = st.text_input("명령")
 
+if 'prompt' not in st.session_state: 
+    st.session_state.prompt = prompti
+
 @st.cache_data()
 def draw(prompt):
     client = OpenAI(api_key= apikey)
