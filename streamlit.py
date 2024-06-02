@@ -11,9 +11,8 @@ st.divider()
 
 st.header("무엇이든 물어보세요.")
 
-prompt1 = st.text_input("질문?")
-
-if st.button("실행"):
+@st.cache_data
+def ask(prompt):
    from openai import OpenAI
    client = OpenAI(api_key= apikey)
    response = client.chat.completions.create(
@@ -23,7 +22,16 @@ if st.button("실행"):
         {"role": "user", "content": prompt1},
      ]
    )
-   st.markdown(response.choices[0].message.content)
+   answer = st.markdown(response.choices[0].message.content)
+   return answer
+	
+	
+
+prompt1 = st.text_input("질문?")
+
+if st.button("실행"):
+	ask(prompt1)
+   
 
 
 
