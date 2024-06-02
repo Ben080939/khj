@@ -1,7 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 
-apikey = st.text_input("api key를 입력하세요", type="password", key="api") 
+apikey = st.text_input("api key를 입력하세요", type="password") 
 
 
 st.session_state
