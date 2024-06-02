@@ -1,9 +1,9 @@
 import streamlit as st
+from openai import OpenAI
+import time
 
 st.header("open api key를 입력하세요.")
 apikey = st.text_input("API Key", type="password")
-
-from openai import OpenAI
 
 client = OpenAI(api_key= apikey)
 
@@ -17,7 +17,6 @@ thread = client.beta.threads.create(
   messages=[ ]
 )
 
-import time
 
 def run_and_wait(client, assistant, thread):
   run = client.beta.threads.runs.create(
@@ -53,10 +52,7 @@ if prompt := st.chat_input("What is up?"):
 	    role="user",
 	    content=prompt
 	  )
-run = client.beta.threads.runs.create(
-	    thread_id=thread.id,
-	    assistant_id=assistant.id
-	  )
+ run_and_wait(client, assistant, thread)
 
 thread_messages = client.beta.threads.messages.list(thread.id)
 
