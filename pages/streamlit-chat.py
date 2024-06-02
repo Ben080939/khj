@@ -7,7 +7,7 @@ apikey = st.text_input("api key를 입력하세요", type="password")
 
 client = OpenAI(api_key= apikey)
 
-tools = [
+tool = [
     {
         "type":"function",
         "function": {
@@ -26,7 +26,7 @@ tools = [
 assistant = client.beta.assistants.create(
     instructions = "당신은 유능한 비서입니다.",
     model = "gpt-4-turbo",
-    tools = tools
+    tools = tool
 )
 
 thread = client.beta.threads.create(
