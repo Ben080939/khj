@@ -1,10 +1,10 @@
 import streamlit as st
 from openai import OpenAI
 
+st.session_state
+
 if 'prompt' in st.session_state: 
     del st.session_state['prmopt']
-    
-st.session_state
 
 st.header("무엇이든 그려보세요.")
 prompti = st.text_input("명령")
