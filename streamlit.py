@@ -28,5 +28,6 @@ if st.button("실행"):
             {"role": "user", "content": pp},
         ]
     )
-    st.markdown(completion.choices[0].message.content)
+    answer = completion.choices[0].message.content
+    st.markdown(answer)
    
