@@ -16,12 +16,11 @@ def draw(prompt):
     image_url = response.data[0].url
     image = f"![alt text]({image_url})"
     return image
-  
 
+if 'prompt' not in st.session_state: 
+    st.session_state.prompt = prompti
 
 if st.button("start"):
-  if 'prompt' not in st.session_state: 
-    st.session_state.prompt = prompti
   img = draw(prompti)
   st.markdown(img)
 
