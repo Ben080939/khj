@@ -91,7 +91,7 @@ if prompt := st.chat_input("What is up?"):
 		        thread_id=thread.id,
 		        run_id=run.id,
 		        tool_outputs=tool_outputs
-		    )
+	)
 	run_check = wait_run(client, run, thread)
 
 
