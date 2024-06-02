@@ -6,7 +6,7 @@ apikey = st.text_input("api key를 입력하세요", type="password")
 
 st.session_state
 
-del st.session_state.api
+
 
 if 'key' not in st.session_state: 
     st.session_state['key'] = apikey
