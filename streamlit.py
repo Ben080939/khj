@@ -6,11 +6,9 @@ st.session_state.api
 
 
 
-client = OpenAI(api_key= apikey)
-
-
 @st.cache_data()
 def ask(pp):
+    client = OpenAI(api_key= apikey)
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
