@@ -84,7 +84,7 @@ if prompt := st.chat_input("What is up?"):
 	                "output": str(output)
 	            }
 	        )
-            print(tool_outputs)	   
+            print("Tool output:", tool_outputs)   
 	    run = client.beta.threads.runs.submit_tool_outputs(
 	        thread_id=thread.id,
 	        run_id=run.id,
