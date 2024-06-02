@@ -1,38 +1,28 @@
 import streamlit as st
+from openai import OpenAI
 
-st.header("open api key를 입력하세요.")
+if 'api_key' not in st.session_state:
+    st.session_state['api_key'] = st.secrets["openai_api_key"]
 
-apikey = st.text_input("API Key",key="api", type="password")
-
-if 'akey' not in st.session_state:
-    st.session_state.akey = 'apikey'
-	
-st.divider() 
-
-st.header("무엇이든 물어보세요.")
+# Prompt1을 세션 상태에 저장 (한 번만 설정되도록)
+if 'prompt1' not in st.session_state:
+    st.session_state['prompt1'] = ''
 
 @st.cache_data
-def ask(prompt):
-   from openai import OpenAI
-   client = OpenAI(api_key= apikey)
-   response = client.chat.completions.create(
-     model="gpt-3.5-turbo",
-     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt1},
-     ]
-   )
-  
-   return response.choices[0].message.content
-	
-	
+def ask(prompt, api_key):
+    client = OpenAI(api_key=api_key)
+    response = client.chat_completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt},
+        ]
+    )
+    return response.choices[0].message.content
 
-prompt1 = st.text_input("질문?")
+# 입력 필드
+st.session_state['prompt1'] = st.text_input("질문?", value=st.session_state['prompt1'])
 
 if st.button("실행"):
-	answer = ask(prompt1)
-	st.markdown(answer)
-   
-
-
-
+    answer = ask(st.session_state['prompt1'], st.session_state['api_key'])
+    st.markdown(answer)
