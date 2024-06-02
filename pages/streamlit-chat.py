@@ -1,6 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 import time
+import json
 
 apikey = st.text_input("api key를 입력하세요", type="password") 
 
