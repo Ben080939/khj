@@ -94,12 +94,12 @@ if prompt := st.chat_input("What is up?"):
         tool_outputs=tool_outputs
       )
       run_check = wait_run(client, run, thread)
-   thread_messages = client.beta.threads.messages.list(thread.id)
-   for msg in thread_messages.data:
-      response = f"Echo: {msg.content[0].text.value}"
-      with st.chat_message("assistant"): 
-	    st.markdown(response)
-      st.session_state.messages.append({"role": "assistant", "content": response})
+    thread_messages = client.beta.threads.messages.list(thread.id)
+    for msg in thread_messages.data:
+       response = f"Echo: {msg.content[0].text.value}"
+       with st.chat_message("assistant"): 
+	     st.markdown(response)
+       st.session_state.messages.append({"role": "assistant", "content": response})
 
 
 
