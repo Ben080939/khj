@@ -1,13 +1,11 @@
 import streamlit as st
 from openai import OpenAI
 
-del st.session_state.key
-apikey = st.text_input("api key를 입력하세요", type="password") 
-
+if st.button("시작"):
+  
+   apikey = st.text_input("api key를 입력하세요", type="password") 
 
 st.session_state
-
-
 
 if 'key' not in st.session_state: 
     st.session_state['key'] = apikey
