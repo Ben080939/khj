@@ -25,10 +25,9 @@ tools = [
 ]
 
 assistant = client.beta.assistants.create(
-  name="assistant",
-  description="당신은 유능한 비서입니다.",
-  model="gpt-4o",
-  tools=[{"type": "code_interpreter"}], tools,
+    instructions = "당신은 미술 선생님입니다",
+    model = "gpt-4-turbo",
+    tools = tools
 )
 
 thread = client.beta.threads.create(
