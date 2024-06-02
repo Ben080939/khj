@@ -18,6 +18,6 @@ def ask(prompt):
 prompt1 = st.text_input("질문을 입력하세요")
 
 if st.button("실행"):
-    answer = ask(prompt1)
+    answer = ask(st.text_input("질문을 입력하세요"))
     st.markdown(answer)
    
