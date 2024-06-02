@@ -1,6 +1,9 @@
 import streamlit as st
 from openai import OpenAI
 
+if 'prompt' in st.session_state: 
+    del st.session_state.prompt
+   
 st.session_state
 
 st.header("무엇이든 그려보세요.")
@@ -17,7 +20,6 @@ def draw(prompt):
 
 
 if st.button("start"):
-  del st.session_state.prompt
   if 'prompt' not in st.session_state: 
     st.session_state.prompt = prompti
   img = draw(prompti)
