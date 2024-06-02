@@ -110,8 +110,10 @@ if st.button("clear"):
 	client.beta.threads.delete(thread.id)
 	thread = client.beta.threads.create(
 	  messages=[
-		  "role":"user",
+	    {
+	        "role":"user",
 	        "content": "만약 사용자가 이미지 생성을 요청하면 해당 주제를 이용해 DALL-E 이미지를 생성해줘: 눈부신 아침의 백사장. 응답은 json만으로 해줘: {'filename':output_file_name}"
+	    }
 	  ]
 	)
 
