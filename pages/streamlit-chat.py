@@ -56,7 +56,6 @@ for msg in st.session_state.messages:
 	with st.chat_message(msg["role"]):
 		st.markdown(msg["content"])
 
-
 if prompt := st.chat_input("What is up?"):
     st.chat_message("user").markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -72,34 +71,36 @@ if prompt := st.chat_input("What is up?"):
     run_check = wait_run(client, run, thread)
     
     if run_check.status == 'requires_action':
-  # function call
-      tool_calls = run_check.required_action.submit_tool_outputs.tool_calls
-      print("함수 호출: ", tool_calls[0].function)
+        # function call
+        tool_calls = run_check.required_action.submit_tool_outputs.tool_calls
+        print("함수 호출: ", tool_calls[0].function)
 
-      tool_outputs = []
-      for tool in tool_calls:
-        func_name = tool.function.name
-        kwargs = json.loads(tool.function.arguments)
-        output = locals()[func_name](**kwargs)
-        tool_outputs.append(
-	    {
-	        "tool_call_id":tool.id,
-	        "output":str(output)
-	    }
+        tool_outputs = []
+        for tool in tool_calls:
+            func_name = tool.function.name
+            kwargs = json.loads(tool.function.arguments)
+            output = locals()[func_name](**kwargs)
+            tool_outputs.append(
+                {
+                    "tool_call_id":tool.id,
+                    "output":str(output)
+                }
+            )
+        print("Tool output:", tool_outputs)
+        run = client.beta.threads.runs.submit_tool_outputs(
+            thread_id=thread.id,
+            run_id=run.id,
+            tool_outputs=tool_outputs
         )
-      print("Tool output:", tool_outputs)
-      run = client.beta.threads.runs.submit_tool_outputs(
-        thread_id=thread.id,
-        run_id=run.id,
-        tool_outputs=tool_outputs
-      )
-      run_check = wait_run(client, run, thread)
+        run_check = wait_run(client, run, thread)
+    
     thread_messages = client.beta.threads.messages.list(thread.id)
-	for msg in thread_messages.data:
-	    response = f"Echo: {msg.content[0].text.value}"
-	    with st.chat_message("assistant"): 
-	        st.markdown(response)
-	    st.session_state.messages.append({"role": "assistant", "content": response})
+    for msg in thread_messages.data:
+        response = f"Echo: {msg.content[0].text.value}"
+        with st.chat_message("assistant"): 
+            st.markdown(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
+
 
 
 
