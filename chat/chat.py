@@ -1,23 +1,54 @@
 import streamlit as st
 from openai import OpenAI
 import time
+import json
 
 st.header("open api key를 입력하세요.")
 apikey = st.text_input("API Key", type="password")
 
 client = OpenAI(api_key= apikey)
 
+tools = [
+    {
+        "type":"function",
+        "function": {
+            "name":"create_image_dalle",
+            "description":"Dall-E를 이용해 이미지를 생성하고 이미지 파일 이름을 반환.",
+            "parameters": {
+                "type":"object",
+                "properties": {
+                    "prompt": {"type":"string", "description":"image generation prompt"}
+                }
+            }
+        }
+    }
+]
+
 assistant = client.beta.assistants.create(
   name="assistant",
   description="당신은 유능한 비서입니다.",
   model="gpt-4o",
-  tools=[{"type": "code_interpreter"}],
+  tools=[{"type": "code_interpreter"}], tools
 )
 
 thread = client.beta.threads.create(
   messages=[
   ]
 )
+
+def wait_run(client, run, thread):
+  while True:
+    run_check = client.beta.threads.runs.retrieve(
+      thread_id=thread.id,
+      run_id=run.id
+    )
+    print(run_check.status)
+    if run_check.status in ['queued','in_progress']:
+      time.sleep(2)
+    else:
+      break
+  return run_check
+
 st.header("무엇이든 물어보세요.")
 
 if "messages" not in st.session_state:
