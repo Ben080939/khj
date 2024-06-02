@@ -15,7 +15,7 @@ def ask(pp):
             {"role": "user", "content": pp},
         ]
     )
-    return response.choices[0].message["content"]
+    return response.completion.choices[0].message.content
 
 pp = st.text_input("질문을 입력하세요")
 
@@ -28,5 +28,5 @@ if st.button("실행"):
             {"role": "user", "content": pp},
         ]
     )
-    st.markdown(response.choices[0].message["content"])
+    st.markdown(completion.choices[0].message.content)
    
