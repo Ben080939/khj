@@ -17,24 +17,6 @@ thread = client.beta.threads.create(
   messages=[ ]
 )
 
-
-def run_and_wait(client, assistant, thread):
-  run = client.beta.threads.runs.create(
-    thread_id=thread.id,
-    assistant_id=assistant.id
-  )
-  while True:
-    run_check = client.beta.threads.runs.retrieve(
-      thread_id=thread.id,
-      run_id=run.id
-    )
-    print(run_check.status)
-    if run_check.status in ['queued','in_progress']:
-      time.sleep(2)
-    else:
-      break
-  return run
-
 st.header("무엇이든 물어보세요.")
 
 if "messages" not in st.session_state:
@@ -52,10 +34,13 @@ if prompt := st.chat_input("What is up?"):
 	    role="user",
 	    content=prompt
 	  )
-        run
-  
-thread_messages = client.beta.threads.messages.list(thread.id)
-
+	client.beta.threads.runs.create(
+	    thread_id=thread.id,
+	    assistant_id=assistant.id
+	)
+	thread_messages = client.beta.threads.messages.list(thread.id)
+	return thread_messages
+	
 for msg in thread_messages.data:
    prompt2 = msg.content[0].text.value
    response = f"Echo: {prompt2}"
