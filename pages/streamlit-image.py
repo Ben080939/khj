@@ -6,9 +6,6 @@ st.session_state
 st.header("무엇이든 그려보세요.")
 prompti = st.text_input("명령")
 
-if 'prompt' not in st.session_state: 
-    st.session_state.prompt = prompti
-
 @st.cache_data()
 def draw(prompt):
     client = OpenAI(api_key= st.session_state.key)
@@ -20,5 +17,10 @@ def draw(prompt):
 
 
 if st.button("start"):
+  del st.session_state.prompt
+  if 'prompt' not in st.session_state: 
+    st.session_state.prompt = prompti
   img = draw(prompti)
   st.markdown(img)
+
+
