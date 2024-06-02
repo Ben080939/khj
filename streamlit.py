@@ -4,13 +4,13 @@ from openai import OpenAI
 apikey = st.text_input("API Key를 입력하세요", type="password")
 
 @st.cache_data()
-def ask(prompt):
+def ask(pp):
     client = OpenAI(api_key = "apikey")
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt},
+            {"role": "user", "content": pp},
         ]
     )
     return response.choices[0].message["content"]
