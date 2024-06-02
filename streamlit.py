@@ -1,11 +1,11 @@
 import streamlit as st
-import os
+from openai import OpenAI
 
 apikey = st.text_input("API Key를 입력하세요", type="password")
 
 @st.cache_data()
 def ask(prompt):
-    client = OpenAI(api_key=apikey)
+    client = OpenAI(api_key = "apikey")
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
