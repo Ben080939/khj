@@ -76,8 +76,6 @@ if prompt := st.chat_input("What is up?"):
 	
 	if run_check.status == 'requires_action':
 	  tool_calls = run_check.required_action.submit_tool_outputs.tool_calls
-	  print("함수 호출: ", tool_calls[0].function)
-	
 	  tool_outputs = []
 	  for tool in tool_calls:
 	    func_name = tool.function.name
@@ -89,7 +87,6 @@ if prompt := st.chat_input("What is up?"):
 	            "output":str(output)
 	        }
 	    )
-	  print("Tool output:", tool_outputs)
 	  run = client.beta.threads.runs.submit_tool_outputs(
 	    thread_id=thread.id,
 	    run_id=run.id,
