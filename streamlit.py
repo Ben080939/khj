@@ -15,9 +15,9 @@ def ask(prompt):
     )
     return response.choices[0].message["content"]
 
-prompt1 = st.text_input("질문을 입력하세요")
+pp = st.text_input("질문을 입력하세요")
 
 if st.button("실행"):
-    answer = ask(st.text_input("질문을 입력하세요"))
+    answer = ask(pp)
     st.markdown(answer)
    
