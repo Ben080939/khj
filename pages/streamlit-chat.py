@@ -25,16 +25,14 @@ tools = [
 ]
 
 assistant = client.beta.assistants.create(
-    instructions = "당신은 미술 선생님입니다",
-    model = "gpt-4-turbo",
-    tools = tools
+  name="assistant",
+  description="당신은 유능한 비서입니다.",
+  model="gpt-4o",
+  tools=[{"type": "code_interpreter"}], tools,
 )
+
 thread = client.beta.threads.create(
   messages=[
-    {
-        "role":"user",
-        "content": "만약 사용자가 이미지 생성을 요청하면 해당 주제를 이용해 DALL-E 이미지를 생성해줘: 눈부신 아침의 백사장. 응답은 json만으로 해줘: {'filename':output_file_name}"
-    }
   ]
 )
 
@@ -72,28 +70,17 @@ if prompt := st.chat_input("What is up?"):
 	  thread_id=thread.id,
 	  assistant_id=assistant.id
 	)
-	run_check = wait_run(client, run, thread)
 	
-	if run_check.status == 'requires_action':
-	  tool_calls = run_check.required_action.submit_tool_outputs.tool_calls
-	  tool_outputs = []
-	  for tool in tool_calls:
-	    func_name = tool.function.name
-	    kwargs = json.loads(tool.function.arguments)
-	    output = locals()[func_name](**kwargs)
-	    tool_outputs.append(
-	        {
-	            "tool_call_id":tool.id,
-	            "output":str(output)
-	        }
-	    )
-	  run = client.beta.threads.runs.submit_tool_outputs(
+	while True:
+	  run_check = client.beta.threads.runs.retrieve(
 	    thread_id=thread.id,
-	    run_id=run.id,
-	    tool_outputs=tool_outputs
+	    run_id=run.id
 	  )
-	  run_check = wait_run(client, run, thread)
-
+	  run_check
+	  if run_check.status not in ['queued','in_progress']:
+	    break
+	  else:
+	    time.sleep(2)	
 	thread_messages = client.beta.threads.messages.list(thread.id)
 	for msg in thread_messages.data:
 	   response = f"Echo: {msg.content[0].text.value}"
@@ -107,10 +94,6 @@ if st.button("clear"):
 	client.beta.threads.delete(thread.id)
 	thread = client.beta.threads.create(
 	  messages=[
-	    {
-	        "role":"user",
-	        "content": "만약 사용자가 이미지 생성을 요청하면 해당 주제를 이용해 DALL-E 이미지를 생성해줘: 눈부신 아침의 백사장. 응답은 json만으로 해줘: {'filename':output_file_name}"
-	    }
 	  ]
 	)
 
