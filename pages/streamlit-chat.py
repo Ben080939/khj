@@ -98,8 +98,8 @@ if prompt := st.chat_input("What is up?"):
     for msg in thread_messages.data:
         response = f"Echo: {msg.content[0].text.value}"
         with st.chat_message("assistant"): 
-	     st.markdown(response)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+	  st.markdown(response)
+    st.session_state.messages.append({"role": "assistant", "content": response})
 
 
 
