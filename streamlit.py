@@ -1,6 +1,5 @@
 import streamlit as st
 import os
-import openai
 from openai import OpenAI
 
 apikey = st.text_input("API Key를 입력하세요", type="password")
@@ -28,6 +27,6 @@ if st.button("실행"):
             {"role": "user", "content": pp},
         ]
     )
-    answer = completions.choices[0].message.content
+    answer = completion.choices[0].message.content
     st.markdown(answer)
    
