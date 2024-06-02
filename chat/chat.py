@@ -34,10 +34,21 @@ if prompt := st.chat_input("What is up?"):
 	    role="user",
 	    content=prompt
 	  )
-	client.beta.threads.runs.create(
-	    thread_id=thread.id,
-	    assistant_id=assistant.id
+	run = client.beta.threads.runs.create(
+	  thread_id=thread.id,
+	  assistant_id=assistant.id
 	)
+	
+	while True:
+	  run_check = client.beta.threads.runs.retrieve(
+	    thread_id=thread.id,
+	    run_id=run.id
+	  )
+	  run_check
+	  if run_check.status not in ['queued','in_progress']:
+	    break
+	  else:
+	    time.sleep(2)	
 	thread_messages = client.beta.threads.messages.list(thread.id)
 	for msg in thread_messages.data:
 	   response = f"Echo: {msg.content[-1].text.value}"
