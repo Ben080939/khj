@@ -7,7 +7,7 @@ apikey = st.text_input("api key를 입력하세요", type="password")
 
 client = OpenAI(api_key= apikey)
 
-tool = [
+tools = [
     {
         "type":"function",
         "function": {
@@ -26,7 +26,7 @@ tool = [
 assistant = client.beta.assistants.create(
     instructions = "당신은 유능한 비서입니다.",
     model = "gpt-4-turbo",
-    tools = tool
+    tools = [{"type": "code_interpreter"}, tools],
 )
 
 thread = client.beta.threads.create(
@@ -87,12 +87,12 @@ if prompt := st.chat_input("What is up?"):
                 }
             )
         print(tool_outputs)
-        
-        run = client.beta.threads.runs.submit_tool_outputs(
-            thread_id=thread.id,
-            run_id=run
-	)
-
+	run = client.beta.threads.runs.submit_tool_outputs(
+		        thread_id=thread.id,
+		        run_id=run.id,
+		        tool_outputs=tool_outputs
+		    )
+	run_check = wait_run(client, run, thread)
 
 
 
