@@ -19,8 +19,6 @@ def ask(prompt):
 prompt1 = st.text_input("질문을 입력하세요")
 
 if st.button("실행"):
-    if api_key:
-        answer = ask(prompt1)
-        st.markdown(answer)
-    else:
-        st.error("API Key를 입력하세요.")
+    answer = ask(prompt1)
+    st.markdown(answer)
+   
