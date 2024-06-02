@@ -52,7 +52,7 @@ if prompt := st.chat_input("What is up?"):
 	    role="user",
 	    content=prompt
 	  )
- run_and_wait(client, assistant, thread):
+  run_and_wait(client, assistant, thread):
 
 thread_messages = client.beta.threads.messages.list(thread.id)
 
