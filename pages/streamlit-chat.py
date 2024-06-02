@@ -72,27 +72,28 @@ if prompt := st.chat_input("What is up?"):
     run_check = wait_run(client, run, thread)
     
     if run_check.status == 'requires_action':
-        tool_calls = run_check.required_action.submit_tool_outputs.tool_calls
-        print(tool_calls[0].function)
-        
-        tool_outputs = []
-        for tool in tool_calls:
-            func_name = tool.function.name
-            kwargs = json.loads(tool.function.arguments)
-            output = locals()[func_name](**kwargs)
-            tool_outputs.append(
-                {
-                    "tool_call_id": tool.id,
-                    "output": str(output)
-                }
-            )
-        print(tool_outputs)
-	run = client.beta.threads.runs.submit_tool_outputs(
-	    thread_id=thread.id,
-	    run_id=run.id,
-	    tool_outputs=tool_outputs
-	)
-	run_check = wait_run(client, run, thread)
+  # function call
+      tool_calls = run_check.required_action.submit_tool_outputs.tool_calls
+      print("함수 호출: ", tool_calls[0].function)
+
+      tool_outputs = []
+      for tool in tool_calls:
+        func_name = tool.function.name
+        kwargs = json.loads(tool.function.arguments)
+        output = locals()[func_name](**kwargs)
+        tool_outputs.append(
+	    {
+	        "tool_call_id":tool.id,
+	        "output":str(output)
+	    }
+        )
+      print("Tool output:", tool_outputs)
+      run = client.beta.threads.runs.submit_tool_outputs(
+        thread_id=thread.id,
+        run_id=run.id,
+        tool_outputs=tool_outputs
+      )
+      run_check = wait_run(client, run, thread)
 
 
 
