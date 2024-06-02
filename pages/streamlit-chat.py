@@ -2,8 +2,6 @@ import streamlit as st
 from openai import OpenAI
 import time
 
-st.session_state
-
 apikey = st.text_input("api key를 입력하세요", type="password") 
 
 client = OpenAI(api_key= apikey)
