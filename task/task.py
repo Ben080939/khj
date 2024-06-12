@@ -9,7 +9,7 @@ prompti = st.text_input("키워드")
 @st.cache_data()
 def draw(prompt):
     client = OpenAI(api_key=apikey)
-    response = client.images.generate(model="dall-e-3",prompt=f'{prompt}를 주제로 하는 음식 한가지')
+    response = client.images.generate(model="dall-e-3",prompt=f'{prompt}를 주제로 하는 음식 한가지를 이모지로')
     image_url = response.data[0].url
     image = f"![alt text]({image_url})"
     return image
