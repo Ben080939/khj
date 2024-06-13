@@ -35,8 +35,6 @@ if st.button("start"):
     st.markdown(r)
     img = draw(r)
     st.markdown(img)
-
-if st.button("맛집 추천"):
     url = "https://www.diningcode.com/list.dc?query=%EA%B2%BD%EC%84%B1%EB%8C%80%EB%B6%80%EA%B2%BD%EB%8C%80&order=r_score" 
     filename1 = 'd.txt'
     
