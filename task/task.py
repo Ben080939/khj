@@ -35,7 +35,7 @@ if st.button("start"):
     st.markdown(r)
     img = draw(r)
     st.markdown(img)
-    url = "https://livecomfort.tistory.com/entry/%EB%B6%80%EC%82%B0%ED%86%A0%EB%B0%95%EC%9D%B4%EC%97%90%EA%B2%8C-%EC%A0%84%EC%88%98%EB%B0%9B%EC%9D%80-%EB%B6%80%EC%82%B0-%EB%A7%9B%EC%A7%91-%EB%A6%AC%EC%8A%A4%ED%8A%B8TOP20" 
+    url = "https://blog.naver.com/dodoti/223136463284" 
     filename1 = 'd.txt'
     
     download_and_save(url, filename1)
