@@ -1,11 +1,20 @@
 import streamlit as st
 from openai import OpenAI
+import requests
+from bs4 import BeautifulSoup
 
 def draw(prompt):
     response = client.images.generate(model="dall-e-3",prompt= prompt)
     image_url = response.data[0].url
     image = f"![alt text]({image_url})"
     return image
+
+def download_and_save(url, filename):
+  rq = requests.get(url)
+  soup = BeautifulSoup(rq.text, 'html.parser')
+  text = soup.get_text(separator=' ', strip=True)
+  with open(filename,'w') as fo:
+    fo.write(text)
 
 apikey = st.text_input("api key를 입력하세요", type="password") 
 
@@ -28,6 +37,21 @@ if st.button("start"):
     st.markdown(img)
 
 if st.button("맛집 추천"):
+    url = "https://www.diningcode.com/list.dc?query=%EA%B2%BD%EC%84%B1%EB%8C%80%EB%B6%80%EA%B2%BD%EB%8C%80&order=r_score" 
+    filename1 = 'd.txt'
+    
+    download_and_save(url, filename1)
+    
+    vector_store = client.beta.vector_stores.create(name="d")
+    
+    file_paths = [filename1]
+    
+    file_streams = [open(path, "rb") for path in file_paths]
+    
+    file_batch = client.beta.vector_stores.file_batches.upload_and_poll(
+      vector_store_id=vector_store.id,
+      files=file_streams
+    )
     assistant = client.beta.assistants.create(
       instructions="당신은 유능한 비서입니다.",
       model="gpt-4-turbo-preview",
