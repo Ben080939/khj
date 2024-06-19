@@ -18,7 +18,7 @@ def download_and_save(url, filename):
 
 apikey = st.text_input("api key를 입력하세요") 
 
-client = OpenAI(api_key=apikey)
+client = OpenAI(api_key=apikey,type = "password")
 
 st.header("음식 메뉴 추천")
 prompti = st.text_input("키워드")
@@ -41,10 +41,43 @@ if st.button("start"):
     url = "https://www.gqkorea.co.kr/2022/06/08/%EC%97%AC%EB%A6%84%EC%9D%B4%EB%8B%88%EA%B9%8C-%EB%B6%80%EC%82%B0-%EB%A8%B9%ED%82%B7-%EB%A6%AC%EC%8A%A4%ED%8A%B8-50/"
     filename2 = '2.txt'
     download_and_save(url, filename2)
+    url = "https://m.blog.naver.com/perience/223172217155"
+    filename3 = '3.txt'
+    download_and_save(url, filename3)
+    url = "https://livecomfort.tistory.com/entry/%EB%B6%80%EC%82%B0%ED%86%A0%EB%B0%95%EC%9D%B4%EC%97%90%EA%B2%8C-%EC%A0%84%EC%88%98%EB%B0%9B%EC%9D%80-%EB%B6%80%EC%82%B0-%EB%A7%9B%EC%A7%91-%EB%A6%AC%EC%8A%A4%ED%8A%B8TOP20"
+    filename4 = '4.txt'
+    download_and_save(url, filename4)
+    url = "https://tastedongmin.tistory.com/entry/%EB%B6%80%EC%82%B0-%ED%98%84%EC%A7%80%EC%9D%B8-%EB%A7%9B%EC%A7%91-%EB%B8%94%EB%A1%9C%EA%B1%B0%EA%B0%80-%EB%BD%91%EC%9D%80-%EB%B6%80%EC%82%B0-%EB%A7%9B%EC%A7%91-%EB%A6%AC%EC%8A%A4%ED%8A%B8-Best12-1%ED%83%84-2023ver"
+    filename5 = '5.txt'
+    download_and_save(url, filename5)
+    url = "https://blog.naver.com/PostView.naver?blogId=kyungdongbu&logNo=222146667907&parentCategoryNo=&categoryNo=8&viewDate=&isShowPopularPosts=true&from=search"
+    filename6 = '6.txt'
+    download_and_save(url, filename6)
+    url = "https://www.bluer.co.kr/magazine/344"
+    filename7 = '7.txt'
+    download_and_save(url, filename7)
+    url = "https://m.blog.naver.com/dodoti/222014667621"
+    filename8 = '8.txt'
+    download_and_save(url, filename8)
+    url = "https://m.diningcode.com/list.dc?query=%EB%B6%80%EC%82%B0"
+    filename9 = '9.txt'
+    download_and_save(url, filename9)
+    url = "https://www.junsungki.com/magazine/post-detail.do?id=606https://www.junsungki.com/magazine/post-detail.do?id=606"
+    filename10 = '10.txt'
+    download_and_save(url, filename10)
+    filename11 = '11.txt'
+    download_and_save(url, filename11)
+    url = "https://haeng.kr/%EB%B6%80%EC%82%B0-%EC%B9%B4%ED%8E%98/"
+    filename12 = '12.txt'
+    download_and_save(url, filename12)
+    url = "https://m.blog.naver.com/seosomang/223189360966?isInf=true"
+    filename13 = '13.txt'
+    download_and_save(url, filename13)
+
     
     vector_store = client.beta.vector_stores.create(name="a")
     
-    file_paths = [filename1,filename2]
+    file_paths = [filename1,filename2,filename3,filename4,filename5,filename6,filename7,filename8,filename9,filename10,filename11,filename12,filename13]
     
     file_streams = [open(path, "rb") for path in file_paths]
     
@@ -81,6 +114,11 @@ if st.button("start"):
     
     for msg in thread_messages.data:
       st.markdown(f"{msg.role}: {msg.content[0].text.value}")
+    client.beta.assistants.delete(assistant.id)
+    client.beta.threads.delete(thread.id)
+    client.beta.vector_stores.delete(vector_store.id)
+
+
     
 
 
