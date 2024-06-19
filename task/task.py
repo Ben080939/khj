@@ -67,8 +67,7 @@ if st.button("start"):
       messages=[
         {
           "role": "user",
-          "content": f'{r}과 관련된 음식을 하는 식당을 하나 첨부된 파일에서 추천해줘',
-          #"attachments": [{"file_id": message_file.id, "tools":[{"type":"file_search"}}]
+          "content": f'{r}을 하는 식당을 하나 추천해줘. 만약 없다면 관련된 음식을 하는 식당을 하나 추천해줘.',
         }
       ]
     )
