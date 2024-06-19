@@ -53,7 +53,7 @@ if st.button("start"):
       files=file_streams
     )
     assistant = client.beta.assistants.create(
-      instructions="당신은 유능한 비서입니다.",
+      instructions="당신은 음식 추천 매니저입니다.",
       model="gpt-4-turbo-preview",
       tools=[{"type": "file_search"}],
       tool_resources={
@@ -67,7 +67,7 @@ if st.button("start"):
       messages=[
         {
           "role": "user",
-          "content": f'{r}을 하는 식당을 하나 추천해줘. 만약 없다면 관련된 음식을 하는 식당을 반드시 무조건 추천해줘',
+          "content": f'{r}을 하는 식당을 하나 추천해줘. 만약 없다면 최대한 비슷한 음식을 하는 식당을 반드시 무조건 추천해줘',
         }
       ]
     )
