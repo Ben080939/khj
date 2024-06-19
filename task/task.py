@@ -28,7 +28,7 @@ if st.button("start"):
       model="gpt-4o",
       messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": f'{prompti}와 관련된 음식 한가지를 추천해줘'},
+        {"role": "user", "content": f'{prompti}와 관련된 음식 한가지를 추천해주고 그 음식의 레시피도 추천해줘'},
       ]
     )
     r = response.choices[0].message.content
