@@ -36,13 +36,15 @@ if st.button("start"):
     img = draw(r)
     st.markdown(img)
     url = "https://blog.naver.com/dodoti/223136463284" 
-    filename1 = 'd.txt'
-    
+    filename1 = '1.txt'
     download_and_save(url, filename1)
+    url = "https://www.gqkorea.co.kr/2022/06/08/%EC%97%AC%EB%A6%84%EC%9D%B4%EB%8B%88%EA%B9%8C-%EB%B6%80%EC%82%B0-%EB%A8%B9%ED%82%B7-%EB%A6%AC%EC%8A%A4%ED%8A%B8-50/"
+    filename2 = '2.txt'
+    download_and_save(url, filename2)
     
-    vector_store = client.beta.vector_stores.create(name="d")
+    vector_store = client.beta.vector_stores.create(name="a")
     
-    file_paths = [filename1]
+    file_paths = [filename1,filename2]
     
     file_streams = [open(path, "rb") for path in file_paths]
     
@@ -65,7 +67,7 @@ if st.button("start"):
       messages=[
         {
           "role": "user",
-          "content": f'{r}을 하는 식당을 첨부된 파일에서 추천해줘',
+          "content": f'{r}과 관련된 음식을 하는 식당을 하나 첨부된 파일에서 추천해줘',
           #"attachments": [{"file_id": message_file.id, "tools":[{"type":"file_search"}}]
         }
       ]
