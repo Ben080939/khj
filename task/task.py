@@ -16,9 +16,9 @@ def download_and_save(url, filename):
   with open(filename,'w') as fo:
     fo.write(text)
 
-apikey = st.text_input("api key를 입력하세요") 
+apikey = st.text_input("api key를 입력하세요",type = 'password') 
 
-client = OpenAI(api_key=apikey,type = 'password')
+client = OpenAI(api_key=apikey)
 
 st.header("음식 메뉴 추천")
 prompti = st.text_input("키워드")
